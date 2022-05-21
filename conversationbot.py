@@ -2,16 +2,16 @@ import psycopg2
 import psycopg2.extras
 import http.client
 
-DB_HOST = "ec2-63-32-248-14.eu-west-1.compute.amazonaws.com"
-DB_NAME = "d6v1f4scfo8bvm"
-DB_USER = "vgimpcwblzxjxc"
-DB_PASS = "b75cf2dbd1a1c1b04489447741d5b36c785c47533d2b8ca16fffdd9e9ec3f5e1"
+DB_HOST = "ec2-34-247-172-149.eu-west-1.compute.amazonaws.com"
+DB_NAME = "dfc2tovhpfhq7h"
+DB_USER = "wtmczgcnaqpgeg"
+DB_PASS = "385932472b51f4f13f9a373e8b41309f4432b409039fa5246fbc7ed5485c945e"
 
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
-
+#
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, bot
 from telegram.ext import (
     Updater,
     CommandHandler,
@@ -114,7 +114,25 @@ def vactypedef(update: Update, context: CallbackContext) -> int:
     user = update.message.from_user
     global continentpy
     continentpy = update.message.text
-    reply_keyboard = [['בטן-גב', 'עירוני', 'סקי']]
+    if ((continentpy=='אוסטרליה' and monthpy=='ינואר') or (continentpy=='אמריקה' and monthpy=='ינואר') or  (continentpy=='אסיה' and monthpy=='ינואר')  or  (continentpy=='אוסטרליה' and monthpy=='פברואר') or  (continentpy=='אמריקה' and monthpy=='פברואר')
+       or    (continentpy=='אמריקה' and monthpy=='מרץ' )  or  (continentpy=='אוסטרליה' and monthpy=='אפריל' )  or    (continentpy=='אמריקה' and monthpy=='אפריל' )  or    (continentpy=='אסיה' and monthpy=='אפריל' )  or    (continentpy=='אמריקה' and monthpy=='מאי' )
+            or (continentpy == 'אסיה' and monthpy == 'מאי')  or    (continentpy=='אוסטרליה' and monthpy=='אוגוסט' )  or    (continentpy=='אמריקה' and monthpy=='אוגוסט' )   or    (continentpy=='אמריקה' and monthpy=='ספטמבר' )
+            or (continentpy == 'אוסטרליה' and monthpy == 'אוקטובר')   or    (continentpy=='אמריקה' and monthpy=='אוקטובר' )   or    (continentpy=='אוסטרליה' and monthpy=='נובמבר' )   or    (continentpy=='אמריקה' and monthpy=='נובמבר' )
+            or (continentpy == 'אוסטרליה' and monthpy == 'דצמבר')   or    (continentpy=='אמריקה' and monthpy=='דצמבר' )):
+        reply_keyboard = [['בטן-גב', 'עירוני']]
+
+    if  ((continentpy=='אירופה' and monthpy=='מרץ')  or (continentpy=='אירופה' and monthpy=='מאי' )):
+         reply_keyboard = [[ 'עירוני', 'סקי']]
+    elif   (continentpy=='אסיה' and monthpy=='יולי' )   or    (continentpy=='אסיה' and monthpy=='יוני' ) :
+        reply_keyboard = [['בטן-גב', 'סקי']]
+    elif ((continentpy == 'אפריקה' and monthpy == 'מרץ') or  (continentpy=='אפריקה' and monthpy=='ינואר')  or (continentpy == 'אפריקה' and monthpy == 'פברואר')   or    (continentpy=='אפריל' and monthpy=='אפריקה' )  or    (continentpy=='אפריקה' and monthpy=='מאי' ) or (continentpy == 'אמריקה' and monthpy == 'יוני')  or    (continentpy=='אוסטרליה' and monthpy=='יולי')  or    (continentpy=='אמריקה' and monthpy=='יולי' )  or    (continentpy=='אפריקה' and monthpy=='יולי' )   or    (continentpy=='אפריקה' and monthpy=='אוגוסט' )   or    (continentpy=='אוסטרליה' and monthpy=='ספטמבר' ) or (continentpy == 'אפריקה' and monthpy == 'ספטמבר')   or    (continentpy=='אפריקה' and monthpy=='אוקטובר' )   or    (continentpy=='אפריקה' and monthpy=='נובמבר' ) or (continentpy == 'אפריקה' and monthpy == 'דצמבר')
+          or    (continentpy=='אוסטרליה' and monthpy=='יוני' )   or    (continentpy=='אפריקה' and monthpy=='יוני' )):
+        reply_keyboard = [['בטן-גב']]
+    elif ((continentpy=='אוסטרליה' and monthpy=='מרץ')  or    (continentpy=='אוסטרליה' and monthpy=='מאי' )) :
+        reply_keyboard = [['עירוני']]
+    else:
+        reply_keyboard = [['בטן-גב', 'עירוני', 'סקי']]
+
     update.message.reply_text(
         'על איזה סוג חופשה חלמת?',
         reply_markup=ReplyKeyboardMarkup(
@@ -169,9 +187,9 @@ def vacdatadef(update: Update, context: CallbackContext) -> int:
          reply_markup=ReplyKeyboardMarkup(
             reply_keyboard, one_time_keyboard=True, input_field_placeholder='אשמח או בפעם אחרת?'
         ),
-    )
+        )
 
-    return HOTEL
+        return HOTEL
 
 hotelCity = "1"
 
@@ -180,6 +198,11 @@ def hotel(update: Update, context: CallbackContext) -> int:
     if update.message.text == "אשמח":
         if len(my_results) == 1:
             hotelCity = my_results[0][0]
+            update.message.reply_text(
+                'באיזו עיר מהרשימה שהוצעה לבצע את החיפוש?',
+                reply_markup=ReplyKeyboardRemove(),
+            )
+
         else:
             update.message.reply_text(
                 'באיזו עיר מהרשימה שהוצעה לבצע את החיפוש?',
@@ -223,9 +246,10 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
             cityEnglish = cur.fetchall()
     conn = http.client.HTTPSConnection("hotel-price-aggregator.p.rapidapi.com")
     headers = {
-        'X-RapidAPI-Host': "hotel-price-aggregator.p.rapidapi.com",
-        'X-RapidAPI-Key': "e0c64a56e1msh1b6cb53ae073302p1335f7jsn499165c89d26"
-    }
+        'X-RapidAPI-Host': 'hotel-price-aggregator.p.rapidapi.com',
+        'X-RapidAPI-Key': 'c90958d4dfmsh217dde06dfe5edbp18cc4fjsn5b9977f8c3c6'
+  }
+
     cityGlobal = cityEnglish[0][0]
     a = cityGlobal
     if " " in cityGlobal:
@@ -243,26 +267,33 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
             i = 1
         if strr in i:
             relevantHotels = relevantHotels + " #" + i
-    relevantHotelsSplit = relevantHotels.split('hotelId":"')
+    if len(relevantHotels)==0:
+        update.message.reply_text(
+            'לצערי לא מצאתי מידע לגבי מלונות ביעד ובחודש שנבחרו',
+            reply_markup=ReplyKeyboardRemove(),
+        )
+        return ConversationHandler.END
+
+    #  relevantHotelsSplit = relevantHotels.split('hotelId":"')
+    relevantHotelsSplit = relevantHotels.split('#')
     finalHotels = {}
     id = ""
     nameHotel = ""
     k = 1
-    for j in range(len(relevantHotelsSplit)):
-        if j == 6:
-            break
-        if j % 2 != 0:
-            i = 0
-            while relevantHotelsSplit[j][i] != '"':
-                id = id + relevantHotelsSplit[j][i]
-                i = i + 1
-        else:
-            i = 0
-            nameIndex = relevantHotelsSplit[j].index('"shortName":"')
-            i = nameIndex + 13
-            while relevantHotelsSplit[j][i] != '"':
-                nameHotel = nameHotel + relevantHotelsSplit[j][i]
-                i = i + 1
+    i=0
+    s=0
+    for p in range(1,len(relevantHotelsSplit)):
+        s=0
+        namesplit=relevantHotelsSplit[p].split('"shortName":"')
+        idsplit = relevantHotelsSplit[p].split('hotelId":"')
+        while namesplit[1][s] != '"':
+            nameHotel = nameHotel + namesplit[1][s]
+            s = s + 1
+        s=0
+        while idsplit[1][s] != '"':
+            id = id + idsplit[1][s]
+            s = s + 1
+
         if id != "" and nameHotel != "":
             finalHotels[k] = {'Name': nameHotel, 'id': id}
             id = ""
@@ -272,11 +303,15 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
     conn = http.client.HTTPSConnection("hotel-price-aggregator.p.rapidapi.com")
     for i in range(1, len(finalHotels) + 1):
         currentHotel = finalHotels[i]['id']
-        payload = "{\r\n    \"hotelId\": \"" + currentHotel + "\",\r\n    \"checkIn\": \"2023-" + monthCheckInOut + "-01\",\r\n    \"checkOut\": \"2023-" + monthCheckInOut + "-02\"\r\n}"
+        if monthCheckInOut=='07' or monthCheckInOut=='08' or monthCheckInOut=='09' or monthCheckInOut=='10' or monthCheckInOut=='11' or monthCheckInOut=='12':
+            payload = "{\r\n    \"hotelId\": \"" + currentHotel + "\",\r\n    \"checkIn\": \"2022-" + monthCheckInOut + "-01\",\r\n    \"checkOut\": \"2022-" + monthCheckInOut + "-02\"\r\n}"
+        else:
+            payload = "{\r\n    \"hotelId\": \"" + currentHotel + "\",\r\n    \"checkIn\": \"2023-" + monthCheckInOut + "-01\",\r\n    \"checkOut\": \"2023-" + monthCheckInOut + "-02\"\r\n}"
+
         headers = {
             'content-type': "application/json",
             'X-RapidAPI-Host': "hotel-price-aggregator.p.rapidapi.com",
-            'X-RapidAPI-Key': "e0c64a56e1msh1b6cb53ae073302p1335f7jsn499165c89d26"
+            'X-RapidAPI-Key': 'c90958d4dfmsh217dde06dfe5edbp18cc4fjsn5b9977f8c3c6'
         }
         conn.request("POST", "/rates", payload, headers)
         res = conn.getresponse()
@@ -313,22 +348,35 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
         if finalHotels[i]['provider'] != 'None':
             countFinalHotels=countFinalHotels+1
     if countFinalHotels==0:
-        update.message.reply_text(
-            'לצערי לא מצאתי מידע לגבי מלונות ביעד ובחודש שנבחרו',
-            reply_markup=ReplyKeyboardRemove(),
-        )
+        flag=1
+        if len(finalHotels)==2:
+            resFinalHotels = resFinalHotels + "מצאתי עבורך מלון ב" + b  + ":" + "\n\n" + \
+                             finalHotels[flag]['Name'] + "\n"
+
+        else:
+            resFinalHotels = resFinalHotels + "מצאתי עבורך מספר מלונות ב" + b  + ":" + "\n\n"
+            while flag!=4 and flag!=len(finalHotels):
+                resFinalHotels = resFinalHotels + finalHotels[flag]['Name'] + "\n\n"
+                flag=flag+1
+
     else:
         if countFinalHotels==1:
             for i in range(1, len(finalHotels)+1):
                 if finalHotels[i]['provider'] != 'None':
                     resFinalHotels = resFinalHotels + "מצאתי עבורך מלון ב" + b + " בחודש " + monthpy + ":" + "\n\n" + finalHotels[i]['Name'] + "\n" + str(finalHotels[i]['price']) + " דולר מחיר משוער ללילה כולל מיסים" + "\n" + "באתר " + finalHotels[i]['provider']
         else:
+            flag=0
             for i in range(1, len(finalHotels)+1):
-                if enterFor==1:
-                    resFinalHotels = resFinalHotels + "מצאתי עבורך מספר מלונות ב" + b + " בחודש " + monthpy + ":" + "\n\n"
-                else:
-                    resFinalHotels = resFinalHotels + finalHotels[i]['Name'] + "\n" + str(finalHotels[i]['price']) + " דולר מחיר משוער ללילה כולל מיסים" + "\n" + "באתר " + finalHotels[i]['provider'] + "\n\n"
-                enterFor=0
+                if finalHotels[i]['provider'] != 'None':
+                    flag=flag+1
+                    if flag==4:
+                        break
+                    if enterFor==1:
+                        resFinalHotels = resFinalHotels + "מצאתי עבורך מספר מלונות ב" + b + " בחודש " + monthpy + ":" + "\n\n"
+                        resFinalHotels = resFinalHotels + finalHotels[i]['Name'] + "\n" + str(finalHotels[i]['price']) + " דולר מחיר משוער ללילה כולל מיסים" + "\n" + "באתר " + finalHotels[i]['provider'] + "\n\n"
+                    else:
+                        resFinalHotels = resFinalHotels + finalHotels[i]['Name'] + "\n" + str(finalHotels[i]['price']) + " דולר מחיר משוער ללילה כולל מיסים" + "\n" + "באתר " + finalHotels[i]['provider'] + "\n\n"
+                    enterFor=0
     update.message.reply_text(
             resFinalHotels,
             reply_markup=ReplyKeyboardRemove(),
@@ -368,6 +416,6 @@ def main() -> None:
     updater.start_polling()
     updater.idle()
 
-#
+
 if __name__ == '__main__':
     main()
