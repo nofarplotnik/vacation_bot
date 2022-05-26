@@ -8,7 +8,7 @@ DB_USER = "wtmczgcnaqpgeg"
 DB_PASS = "385932472b51f4f13f9a373e8b41309f4432b409039fa5246fbc7ed5485c945e"
 
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
-#
+
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, bot
@@ -114,22 +114,29 @@ def vactypedef(update: Update, context: CallbackContext) -> int:
     user = update.message.from_user
     global continentpy
     continentpy = update.message.text
-    if ((continentpy=='אוסטרליה' and monthpy=='ינואר') or (continentpy=='אמריקה' and monthpy=='ינואר') or  (continentpy=='אסיה' and monthpy=='ינואר')  or  (continentpy=='אוסטרליה' and monthpy=='פברואר') or  (continentpy=='אמריקה' and monthpy=='פברואר')
+    if ((continentpy=='אוסטרליה' and monthpy=='ינואר') or (continentpy=='אמריקה' and monthpy=='ינואר') or (continentpy=='אוסטרליה' and monthpy=='פברואר') or  (continentpy=='אמריקה' and monthpy=='פברואר')
        or    (continentpy=='אמריקה' and monthpy=='מרץ' )  or  (continentpy=='אוסטרליה' and monthpy=='אפריל' )  or    (continentpy=='אמריקה' and monthpy=='אפריל' )  or    (continentpy=='אסיה' and monthpy=='אפריל' )  or    (continentpy=='אמריקה' and monthpy=='מאי' )
-            or (continentpy == 'אסיה' and monthpy == 'מאי')  or    (continentpy=='אוסטרליה' and monthpy=='אוגוסט' )  or    (continentpy=='אמריקה' and monthpy=='אוגוסט' )   or    (continentpy=='אמריקה' and monthpy=='ספטמבר' )
+            or    (continentpy=='אוסטרליה' and monthpy=='אוגוסט' )  or    (continentpy=='אמריקה' and monthpy=='אוגוסט' )   or    (continentpy=='אמריקה' and monthpy=='ספטמבר' )
             or (continentpy == 'אוסטרליה' and monthpy == 'אוקטובר')   or    (continentpy=='אמריקה' and monthpy=='אוקטובר' )   or    (continentpy=='אוסטרליה' and monthpy=='נובמבר' )   or    (continentpy=='אמריקה' and monthpy=='נובמבר' )
-            or (continentpy == 'אוסטרליה' and monthpy == 'דצמבר')   or    (continentpy=='אמריקה' and monthpy=='דצמבר' )):
+            or (continentpy == 'אוסטרליה' and monthpy == 'דצמבר')   or    (continentpy=='אמריקה' and monthpy=='דצמבר' ) or    (continentpy=='אסיה' and monthpy=='פברואר' ) or (continentpy == 'אסיה' and monthpy == 'אוגוסט')):
         reply_keyboard = [['בטן-גב', 'עירוני']]
 
-    if  ((continentpy=='אירופה' and monthpy=='מרץ')  or (continentpy=='אירופה' and monthpy=='מאי' )):
+    if  ((continentpy=='אירופה' and monthpy=='מרץ')):
          reply_keyboard = [[ 'עירוני', 'סקי']]
+
     elif   (continentpy=='אסיה' and monthpy=='יולי' )   or    (continentpy=='אסיה' and monthpy=='יוני' ) :
         reply_keyboard = [['בטן-גב', 'סקי']]
-    elif ((continentpy == 'אפריקה' and monthpy == 'מרץ') or  (continentpy=='אפריקה' and monthpy=='ינואר')  or (continentpy == 'אפריקה' and monthpy == 'פברואר')   or    (continentpy=='אפריל' and monthpy=='אפריקה' )  or    (continentpy=='אפריקה' and monthpy=='מאי' ) or (continentpy == 'אמריקה' and monthpy == 'יוני')  or    (continentpy=='אוסטרליה' and monthpy=='יולי')  or    (continentpy=='אמריקה' and monthpy=='יולי' )  or    (continentpy=='אפריקה' and monthpy=='יולי' )   or    (continentpy=='אפריקה' and monthpy=='אוגוסט' )   or    (continentpy=='אוסטרליה' and monthpy=='ספטמבר' ) or (continentpy == 'אפריקה' and monthpy == 'ספטמבר')   or    (continentpy=='אפריקה' and monthpy=='אוקטובר' )   or    (continentpy=='אפריקה' and monthpy=='נובמבר' ) or (continentpy == 'אפריקה' and monthpy == 'דצמבר')
+
+    elif ((continentpy == 'אפריקה' and monthpy == 'מרץ') or  (continentpy=='אפריקה' and monthpy=='ינואר')  or (continentpy == 'אפריקה' and monthpy == 'פברואר')   or    (continentpy=='אפריקה' and monthpy=='אפריל' )  or    (continentpy=='אפריקה' and monthpy=='מאי' ) or (continentpy == 'אמריקה' and monthpy == 'יוני')  or    (continentpy=='אוסטרליה' and monthpy=='יולי')  or (continentpy=='אפריקה' and monthpy=='יולי' )   or    (continentpy=='אפריקה' and monthpy=='אוגוסט' )   or    (continentpy=='אוסטרליה' and monthpy=='ספטמבר' ) or (continentpy == 'אפריקה' and monthpy == 'ספטמבר')   or    (continentpy=='אפריקה' and monthpy=='אוקטובר' )   or    (continentpy=='אפריקה' and monthpy=='נובמבר' ) or (continentpy == 'אפריקה' and monthpy == 'דצמבר')
           or    (continentpy=='אוסטרליה' and monthpy=='יוני' )   or    (continentpy=='אפריקה' and monthpy=='יוני' )):
         reply_keyboard = [['בטן-גב']]
+
     elif ((continentpy=='אוסטרליה' and monthpy=='מרץ')  or    (continentpy=='אוסטרליה' and monthpy=='מאי' )) :
         reply_keyboard = [['עירוני']]
+
+    elif ((continentpy=='אמריקה' and monthpy=='יולי')) :
+        update.message.reply_text("לצערי לא מצאתי חופשות לנתונים שבחרת, אנא נסה לשנות את נתוני החופשה /tryAgain")
+
     else:
         reply_keyboard = [['בטן-גב', 'עירוני', 'סקי']]
 
@@ -234,7 +241,7 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
     else:
        b = hotelCity
     update.message.reply_text(
-        'תהליך זה יקח מספר רגעים :)',
+        'תהליך זה יקח מספר רגעים :) כ- 2 דקות',
         reply_markup=ReplyKeyboardRemove(),
     )
     conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
@@ -247,7 +254,7 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
     conn = http.client.HTTPSConnection("hotel-price-aggregator.p.rapidapi.com")
     headers = {
         'X-RapidAPI-Host': 'hotel-price-aggregator.p.rapidapi.com',
-        'X-RapidAPI-Key': 'c90958d4dfmsh217dde06dfe5edbp18cc4fjsn5b9977f8c3c6'
+        'X-RapidAPI-Key': 'd49cb50581msh39ca9981d2c0ba7p1f1b53jsn4ae5bab71ed3'
   }
 
     cityGlobal = cityEnglish[0][0]
@@ -311,7 +318,7 @@ def hoteldetails(update: Update, context: CallbackContext) -> int:
         headers = {
             'content-type': "application/json",
             'X-RapidAPI-Host': "hotel-price-aggregator.p.rapidapi.com",
-            'X-RapidAPI-Key': 'c90958d4dfmsh217dde06dfe5edbp18cc4fjsn5b9977f8c3c6'
+            'X-RapidAPI-Key': 'd49cb50581msh39ca9981d2c0ba7p1f1b53jsn4ae5bab71ed3'
         }
         conn.request("POST", "/rates", payload, headers)
         res = conn.getresponse()
@@ -405,7 +412,7 @@ def main() -> None:
         states={
             MONTHDEF: [MessageHandler(Filters.regex('^(מעולה|גרוע)$'), monthdef)],
             CONTINENTDEF: [MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12)$'), continentdef)],
-            VACTYPEDEF: [MessageHandler(Filters.regex('^(אירופה|אסיה|אפריקה|אמריקה|אוסטרליה)$'), vactypedef)],
+            VACTYPEDEF: [MessageHandler(Filters.regex('^(אירופה|אסיה|אפריקה|אמריקה|אוסטרליה)$'), vactypedef), CommandHandler('tryAgain', monthdef)],
             VACDATADEF: [MessageHandler(Filters.regex('^(סקי|עירוני|בטן-גב)$'), vacdatadef),CommandHandler('tryAgain', monthdef)],
             HOTEL: [MessageHandler(Filters.regex('^(בפעם אחרת|אשמח)$'), hotel)],
             HOTELDETAILS: [MessageHandler(Filters.text & ~Filters.command, hoteldetails)]
